@@ -18,11 +18,11 @@ jobs:
 
     # Build the Docker image
     - name: Build the Docker image
-      run: docker build . --file Dockerfile --tag fiap-food-registry:$(date +%s)
+      run: docker build . --file Dockerfile --tag fiap-food:$(date +%s)
 
     # Tag the Docker image
     - name: Tag the Docker image
-      run: docker tag fiap-food-registry:$(date +%s) 381491857793.dkr.ecr.us-east-1.amazonaws.com/fiap-food-registry:latest
+      run: docker tag fiap-food-registry:$(date +%s) 381491857793.dkr.ecr.us-east-1.amazonaws.com/fiap-food:latest
 
     # Push the Docker image to Amazon ECR
     - name: Push the Docker image
