@@ -1,0 +1,29 @@
+name: Docker Image CI
+
+on:
+  push:
+    branches: [ "main" ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+
+    # Login to Amazon ECR
+    - name: Login to Amazon ECR
+      id: login-ecr
+      uses: aws-actions/amazon-ecr-login@v1
+
+    # Build the Docker image
+    - name: Build the Docker image
+      run: docker build . --file Dockerfile --tag fiap-food-registry:$(date +%s)
+
+    # Tag the Docker image
+    - name: Tag the Docker image
+      run: docker tag fiap-food-registry:$(date +%s) 381491857793.dkr.ecr.us-east-1.amazonaws.com/fiap-food-registry:latest
+
+    # Push the Docker image to Amazon ECR
+    - name: Push the Docker image
+      run: docker push 381491857793.dkr.ecr.us-east-1.amazonaws.com/fiap-food-registry:latest
