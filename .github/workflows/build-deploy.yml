@@ -22,7 +22,6 @@ jobs:
       with:
         push: true
         tags: registry.digitalocean.com/fiap-food-registry/fiap-food:latest
-        load: true
         secrets: |
           DOCKER_CONFIG=${{ github.workspace }}
 
