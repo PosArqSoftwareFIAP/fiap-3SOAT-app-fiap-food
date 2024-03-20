@@ -11,25 +11,27 @@ jobs:
     - name: Check out code
       uses: actions/checkout@v2
 
-    - name: Decode Docker Registry Token
-      id: docker_login
-      run: |
-        echo "${{ secrets.DOCKER_BASE64_TOKEN }}" | base64 -d > ${{ github.workspace }}/docker_auth.json
-        echo "::set-output name=reg_token::$(cat ${{ github.workspace }}/docker_auth.json)"
-
-    - name: Build and push Docker image
-      uses: docker/build-push-action@v2
-      with:
-        push: true
-        tags: registry.digitalocean.com/fiap-food-registry/fiap-food:latest
-        secrets: |
-          DOCKER_CONFIG=${{ github.workspace }}
-
     - name: Install doctl
       uses: digitalocean/action-doctl@v2
       with:
         token: ${{ secrets.DO_TOKEN }}
 
+    # - name: Build and push Docker image
+    #   uses: docker/build-push-action@v2
+    #   with:
+    #     push: true
+    #     tags: registry.digitalocean.com/fiap-food-registry/fiap-food:latest
+    #     secrets: |
+    #       DOCKER_CONFIG=${{ github.workspace }}
+
+    - name: Build container image
+      run: docker build -t registry.digitalocean.com/fiap-food-registry/fiap-food:latest
+
+    - name: Log in to DigitalOcean Container Registry with short-lived credentials
+      run: doctl registry login --expiry-seconds 1200
+
+    - name: Push image to DigitalOcean Container Registry
+      run: docker push registry.digitalocean.com/fiap-food-registry/fiap-food:latest
 
     - name: Set up environment variables
       env:
