@@ -36,7 +36,7 @@ jobs:
     - name: Deploy to Kubernetes
       run: |
         doctl kubernetes cluster kubeconfig save fiap-food-k8
-        kubectl apply -f artefatos\ yaml/deployment-prod.yaml
+        kubectl apply -f artefatos\ yaml/deployment.yaml
         kubectl apply -f artefatos\ yaml/service.yaml
         kubectl apply -f artefatos\ yaml/load_balancer.yaml
         kubectl rollout status deployment/fiap-food
