@@ -1,7 +1,7 @@
 kind: Service
 apiVersion: v1
 metadata:
-  name: fiap-food
+  name: fiap-food-service
   labels:
     k8s-app: fiap-food
 spec:
