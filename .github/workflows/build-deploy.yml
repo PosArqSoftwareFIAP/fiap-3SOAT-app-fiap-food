@@ -23,6 +23,7 @@ jobs:
     #     tags: registry.digitalocean.com/fiap-food-registry/fiap-food:latest
     #     secrets: |
     #       DOCKER_CONFIG=${{ github.workspace }}
+    
 
     - name: Build container image
       run: docker build -t registry.digitalocean.com/fiap-food-registry/fiap-food:latest .
