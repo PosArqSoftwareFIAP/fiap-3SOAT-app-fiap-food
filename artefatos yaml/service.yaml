@@ -2,7 +2,6 @@ kind: Service
 apiVersion: v1
 metadata:
   name: fiap-food
-  namespace: fiap-food
   labels:
     k8s-app: fiap-food
 spec:
