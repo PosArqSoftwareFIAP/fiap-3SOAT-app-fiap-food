@@ -33,20 +33,12 @@ jobs:
     - name: Push image to DigitalOcean Container Registry
       run: docker push registry.digitalocean.com/fiap-food-registry/fiap-food:latest
 
-    - name: Set up environment variables
-      env:
-        MYSQL_HOST: ${{ secrets.MYSQL_HOST }}
-        MYSQL_PASSWORD: ${{ secrets.MYSQL_PASSWORD }}
-        MYSQL_USER: ${{ secrets.MYSQL_USER }}
-      run: |
-        cd artefatos\ yaml
-        envsubst < deployment.yaml > deployment-prod.yaml
-
     - name: Deploy to Kubernetes
       run: |
         doctl kubernetes cluster kubeconfig save fiap-food-k8
         kubectl apply -f artefatos\ yaml/deployment-prod.yaml
         kubectl apply -f artefatos\ yaml/service.yaml
+        kubectl apply -f artefatos\ yaml/load_balancer.yaml
         kubectl rollout status deployment/fiap-food
         kubectl patch deployment fiap-food -p \
         "{\"spec\":{\"template\":{\"metadata\":{\"annotations\":{\"date\":\"`date +'%s'`\"}}}}}"

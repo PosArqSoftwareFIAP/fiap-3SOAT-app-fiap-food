@@ -23,11 +23,11 @@ spec:
           image: registry.digitalocean.com/fiap-food-registry/fiap-food:latest
           env:
             - name: MYSQL_HOST
-              value: XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+              value: leo-pessoal-do-user-9421695-0.b.db.ondigitalocean.com
             - name: MYSQL_PASSWORD
-              value: XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+              value: AVNS_ap_g-5JOgfWvQdn4cIQ
             - name: MYSQL_USER
-              value: XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+              value: doadmin
           resources: {}
           terminationMessagePath: /dev/termination-log
           terminationMessagePolicy: File
